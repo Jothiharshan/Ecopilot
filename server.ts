@@ -1962,8 +1962,11 @@ async function startServer() {
 
     }
   });
-  app.get("/test", (req, res) => {
-    res.json(factories);
+  app.get("/api/test", (req, res) => {
+    res.json({
+      success: true,
+      factories
+    });
   });
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 EcoPilot AI server running on http://localhost:${PORT}`);
