@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        // Intercept WebSocket creation for Vite HMR in preview sandbox environment
+        var NativeWS = window.WebSocket;
+        if (NativeWS) {
+          function DummyWS(url, protocols) {
+            var isViteHmr = typeof url === 'string' && (url.includes('vite') || url.includes('/@vite/'));
+            if (isViteHmr) {
+              var dummy = {
+                readyState: 3, // CLOSED
+                bufferedAmount: 0,
+                extensions: '',
+                protocol: '',
+                binaryType: 'blob',
+                url: url,
+                addEventListener: function () {},
+                removeEventListener: function () {},
+                dispatchEvent: function () { return false; },
+                send: function () {},
+                close: function () {},
+                onerror: null,
+                onclose: null,
+                onopen: null,
+                onmessage: null
+              };
+              setTimeout(function () {
+                if (typeof dummy.onclose === 'function') {
+                  dummy.onclose({ code: 1000, reason: 'HMR disabled in container preview', wasClean: true });
+                }
+              }, 0);
+              return dummy;
+            }
+            return new NativeWS(url, protocols);
+          }
+          DummyWS.prototype = NativeWS.prototype;
+          DummyWS.CONNECTING = 0;
+          DummyWS.OPEN = 1;
+          DummyWS.CLOSING = 2;
+          DummyWS.CLOSED = 3;
+          window.WebSocket = DummyWS;
+        }
+
+        // Suppress benign Vite HMR logs & unhandled rejections
+        var isWsMsg = function (msg) {
+          if (!msg) return false;
+          var str = typeof msg === 'string' ? msg : (msg.message || msg.reason || String(msg));
+          return str.includes('WebSocket') || str.includes('websocket') || str.includes('[vite]');
+        };
+
+        var origDebug = console.debug;
+        console.debug = function () {
+          var args = Array.prototype.slice.call(arguments);
+          if (args.some(isWsMsg)) return;
+          origDebug.apply(console, args);
+        };
+
+        var origError = console.error;
+        console.error = function () {
+          var args = Array.prototype.slice.call(arguments);
+          if (args.some(isWsMsg)) return;
+          origError.apply(console, args);
+        };
+
+        window.addEventListener('unhandledrejection', function (e) {
+          if (isWsMsg(e.reason) || isWsMsg(e)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+
+        window.addEventListener('error', function (e) {
+          if (isWsMsg(e.error) || isWsMsg(e.message)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoPilot AI</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,76 @@
+{
+  "entities": {
+    "Factory": {
+      "title": "Factory",
+      "description": "Smart manufacturing factory entity",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "location": { "type": "string" },
+        "industryType": { "type": "string" },
+        "numberOfMachines": { "type": "number" },
+        "numberOfEmployees": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "location", "industryType", "numberOfMachines", "numberOfEmployees", "createdAt"]
+    },
+    "DailyRecord": {
+      "title": "DailyRecord",
+      "description": "Daily operational metrics record for a factory",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "factoryId": { "type": "string" },
+        "date": { "type": "string" },
+        "electricityKwh": { "type": "number" },
+        "waterLiters": { "type": "number" },
+        "productionOutput": { "type": "number" },
+        "workingHours": { "type": "number" },
+        "machineUtilization": { "type": "number" },
+        "maintenanceCost": { "type": "number" },
+        "operatingCost": { "type": "number" }
+      },
+      "required": [
+        "id",
+        "factoryId",
+        "date",
+        "electricityKwh",
+        "waterLiters",
+        "productionOutput",
+        "workingHours",
+        "machineUtilization",
+        "maintenanceCost",
+        "operatingCost"
+      ]
+    },
+    "User": {
+      "title": "User",
+      "description": "Application user profile entity",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "companyName": { "type": "string" },
+        "token": { "type": "string" }
+      },
+      "required": ["id", "email", "name", "role", "companyName"]
+    }
+  },
+  "firestore": {
+    "/factories/{factoryId}": {
+      "schema": { "$ref": "#/entities/Factory" },
+      "description": "Collection of factory documents"
+    },
+    "/factories/{factoryId}/records/{recordId}": {
+      "schema": { "$ref": "#/entities/DailyRecord" },
+      "description": "Subcollection of daily records per factory"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Collection of user profile documents"
+    }
+  }
+}

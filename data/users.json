@@ -1,0 +1,158 @@
+[
+  {
+    "id": "usr-001",
+    "email": "owner@ecopilot.ai",
+    "name": "Marcus Vance",
+    "role": "Factory Owner",
+    "companyName": "Apex Manufacturing Group",
+    "token": "jwt-token-owner-sample-9842",
+    "passwordHash": "$2b$10$LJ/wcthr4/96OtfM6zplyuSK9bolFXx2VMxuRDcBaQE3Ny7XM38TS",
+    "factoryIds": [
+      "f-001",
+      "f-002"
+    ]
+  },
+  {
+    "id": "usr-002",
+    "email": "manager@ecopilot.ai",
+    "name": "Elena Rostova",
+    "role": "Factory Manager",
+    "companyName": "Apex Tech Precision Works",
+    "token": "jwt-token-manager-sample-1134",
+    "passwordHash": "$2b$10$QiuXOEVGBuhUA1S6tcS54OObT/mjPQnw07WF1QiLDLJsoL.023p0C",
+    "factoryIds": [
+      "f-001"
+    ]
+  },
+  {
+    "id": "usr-003",
+    "email": "admin@ecopilot.ai",
+    "name": "Samir Patel",
+    "role": "Administrator",
+    "companyName": "EcoPilot AI Corp",
+    "token": "jwt-token-admin-sample-4412",
+    "passwordHash": "$2b$10$PzrV5jrsL0MxmY/4tyKUMO7NaWfVAvZMITKR4E.LEcTpZNLKESeyW",
+    "factoryIds": [
+      "f-001",
+      "f-002"
+    ]
+  },
+  {
+    "id": "usr-1785604244901",
+    "email": "kathir.e014@gmail.com",
+    "name": "kathir e",
+    "role": "Factory Manager",
+    "companyName": "kathir textile",
+    "token": "jwt-1785756083348-e1753a78dd8108c6a397e4b13acacc6f",
+    "passwordHash": "$2b$10$pzGEJ6U..9y/LvGEqmVG1uXkpzktth0Sx1uTv4RlkFuNzy1BtEz3e",
+    "factoryIds": [
+      "f-1785604307165",
+      "f-1785631460871",
+      "f-1785651275915",
+      "f-1785745115385"
+    ]
+  },
+  {
+    "id": "usr-1785641172064",
+    "email": "uei8630@gmail.com",
+    "name": "kathir E",
+    "role": "Factory Owner",
+    "companyName": "mini textile",
+    "token": "jwt-1785641172064-a96851964cb795a928f2c2827a8917d1",
+    "passwordHash": "$2b$10$xi853UUi1BwA0CNHsoJ46.7Y8JvyWp0zL7e6SHTHzUFmKUzJNPgCK",
+    "factoryIds": []
+  },
+  {
+    "id": "usr-1785651007022",
+    "email": "kohulprabha@gmail.com",
+    "name": "jothi harshan",
+    "role": "Factory Owner",
+    "companyName": "squad",
+    "token": "jwt-1785735662939-6686d7c0465527736a6e90320c517985",
+    "passwordHash": "$2b$10$TDcyqZFI/9t.GADBnJ7OauKpXjnLu46ZoY3hK1Y88uxJ.OEZR878y",
+    "factoryIds": []
+  },
+  {
+    "id": "usr-1785666050389",
+    "email": "eshwaranpalanisamy@gmail.com",
+    "name": "kavitha E",
+    "role": "Factory Manager",
+    "companyName": "kavitha textile",
+    "token": "jwt-1785666125583-b351c76187418b7d3a184a9f7eb88798",
+    "passwordHash": "$2b$10$aRhOcRjpkEa9VBqAWY8Zoun7C0xgQDBXm1kZZFurZkAHm4UexZF/W",
+    "factoryIds": []
+  },
+  {
+    "id": "usr-1785738394445",
+    "email": "joshithakannan795@gmail.com",
+    "name": "Joshitha K S",
+    "role": "Factory Owner",
+    "companyName": "joshifactory",
+    "token": "jwt-1785738394445-fa939604bca4e28e22824ba9d99c7964",
+    "passwordHash": "$2b$10$wOVXcXT/hRC39N8kuxwT3O7xBXFEPEJKIoNs9TwZ4DST1RWfYTQ0.",
+    "factoryIds": []
+  },
+  {
+    "id": "usr-1785740311216",
+    "email": "jayasakthi25102007@gmail.com",
+    "name": "Jayasakthi",
+    "role": "Factory Owner",
+    "companyName": "Ecopilot factory",
+    "token": "jwt-1785748655329-aa41e9ddcfa38c4a57184274addd2762",
+    "passwordHash": "$2b$10$xROltv2KVpmL4Yrdo9vJi.mtK/lpKvBNnUNOtKTY.86uh783YRB6O",
+    "factoryIds": [
+      "f-1785743754078",
+      "f-1785744349036"
+    ]
+  },
+  {
+    "id": "usr-1785740503128",
+    "email": "kathir.e014@gmil.com",
+    "name": "kathir",
+    "role": "Factory Owner",
+    "companyName": "kathir textile",
+    "token": "jwt-1785740503128-312b4925e625e05508dbf4e47fcc111c",
+    "passwordHash": "$2b$10$u9QWgnJhRL8Fo1Nu1lK2s.ZsioavsPKILG3MQ.ACWoaPepXDnjvoW",
+    "factoryIds": []
+  },
+  {
+    "id": "usr-1785743878819",
+    "email": "masterharshan5@gmail.com",
+    "name": "Jothi",
+    "role": "Factory Owner",
+    "companyName": "Aceme",
+    "token": "jwt-1785751724741-628deca45c61c6d98c1cb473b1d147a6",
+    "passwordHash": "$2b$10$C6iDrBmNIqRfxwCKGiF7Vuefrc6ut4fPqRkl6W6koHSizWsyMsyYy",
+    "factoryIds": []
+  },
+  {
+    "id": "usr-1785744912121",
+    "email": "madhupkishor20@gmail.com",
+    "name": "madhupkishor",
+    "role": "Factory Owner",
+    "companyName": "MK",
+    "token": "jwt-1785744912121-e68638d48e41e97a8376665d5d45f905",
+    "passwordHash": "$2b$10$R2hDsr8njNYoZmx5v8lf5u0uWfw7Bz3AxDzV6eqdyFHHwIkKTRZwS",
+    "factoryIds": []
+  },
+  {
+    "id": "usr-1785745856441",
+    "email": "jothishakannankannan@gmail.com",
+    "name": "jothisha",
+    "role": "Factory Manager",
+    "companyName": "jothi",
+    "token": "jwt-1785745856441-8537c36a129162e2728025f130c49e51",
+    "passwordHash": "$2b$10$xowbKFviCShJ73EE0NWPr.HQ6Cxm.dPDoLF15L8Op4oir2piLpds6",
+    "factoryIds": []
+  },
+  {
+    "id": "usr-1785758966735",
+    "email": "rharihumix@gmail.com",
+    "name": "harishankar",
+    "role": "Factory Owner",
+    "companyName": "Humix World",
+    "token": "jwt-1785763317685-92bc5f20d47aac1003a69b9c3299b0f0",
+    "passwordHash": "$2b$10$/c6kDgONtsaS.mDaDhCV4u8ufgR/UiH4z.Ett/3xkPqEKZ8ATJzuS",
+    "factoryIds": []
+  }
+]

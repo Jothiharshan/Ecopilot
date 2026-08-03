@@ -1,0 +1,8 @@
+{
+  "name": "EcoPilot AI",
+  "description": "AI Co-Pilot for Smart \u0026 Sustainable Manufacturing for MSMEs with real-time operational monitoring, predictions, anomaly detection, health scoring, and interactive AI assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
