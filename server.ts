@@ -1873,49 +1873,98 @@ async function startServer() {
 
   //IOT DATA RECEIVING ENDPOINT
   app.post("/api/iot/data", async (req, res) => {
-
     try {
 
       const {
-        voltage,
-        current,
-        power,
-        energy,
-        frequency,
-        powerFactor
+        electricity_kwh,
+        water_liters,
+        production_output,
+        working_hours,
+        machine_utilization,
+        maintenance_cost,
+        operating_cost,
       } = req.body;
 
       console.log("ESP32 DATA RECEIVED");
-
       console.log(req.body);
 
-      // Example:
-      // Save to database here later
+      const factoryId = "YOUR_FACTORY_ID";   // <-- CHANGE THIS
 
-      return res.status(200).json({
+      const today = new Date().toISOString().split("T")[0];
 
+      const existingIdx = dailyRecords.findIndex(
+        (r) => r.factoryId === factoryId && r.date === today
+      );
+
+      const record: DailyRecord = {
+
+        id:
+          existingIdx !== -1
+            ? dailyRecords[existingIdx].id
+            : `rec-${Date.now()}`,
+
+        factoryId,
+
+        date: today,
+
+        machineName: "ESP32 Demo",
+
+        temperature: 0,
+
+        pressure: 0,
+
+        vibration: 0,
+
+        electricityKwh: Number(electricity_kwh),
+
+        waterLiters: Number(water_liters),
+
+        productionOutput: Number(production_output),
+
+        workingHours: Number(working_hours),
+
+        machineUtilization: Number(machine_utilization),
+
+        downtimeHours: 0,
+
+        maintenanceCost: Number(maintenance_cost),
+
+        operatingCost: Number(operating_cost),
+
+        operatorNotes: "ESP32 Live Data"
+
+      };
+
+      if (existingIdx !== -1) {
+        dailyRecords[existingIdx] = record;
+      } else {
+        dailyRecords.push(record);
+      }
+
+      await saveDailyRecordDb(record);
+
+      await saveRecordToStore(factoryId, record);
+
+      res.json({
         success: true,
-
-        message: "Sensor Data Received",
-
-        data: req.body
-
+        message: "ESP32 data saved",
+        data: record
       });
 
     } catch (err) {
 
       console.error(err);
 
-      return res.status(500).json({
-
-        success: false
-
+      res.status(500).json({
+        success: false,
+        error: String(err)
       });
 
     }
-
   });
-
+  app.get("/test", (req, res) => {
+    res.json(factories);
+  });
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 EcoPilot AI server running on http://localhost:${PORT}`);
   });
