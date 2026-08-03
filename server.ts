@@ -38,6 +38,7 @@ import {
   saveUserDb,
   getAllResetTokensDb,
   saveResetTokenDb,
+
 } from "./src/db/queries";
 
 dotenv.config();
@@ -564,7 +565,7 @@ async function syncDatabaseInit() {
         token: u.token,
         factoryIds: u.factoryIds,
         createdAt: new Date().toISOString(),
-      }).catch(() => {});
+      }).catch(() => { });
 
       await saveUserDb({
         id: u.id,
@@ -576,7 +577,7 @@ async function syncDatabaseInit() {
         passwordHash: u.passwordHash,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-      }).catch(() => {});
+      }).catch(() => { });
     }
 
     console.log(`Synced ${users.length} users across local storage, Firestore, and Cloud SQL.`);
@@ -665,7 +666,7 @@ app.post("/api/auth/login", async (req, res) => {
     token: foundUser.token,
     factoryIds: foundUser.factoryIds,
     updatedAt: new Date().toISOString(),
-  }).catch(() => {});
+  }).catch(() => { });
 
   await saveUserDb({
     id: foundUser.id,
@@ -676,7 +677,7 @@ app.post("/api/auth/login", async (req, res) => {
     companyName: foundUser.companyName,
     passwordHash: foundUser.passwordHash,
     updatedAt: new Date().toISOString(),
-  }).catch(() => {});
+  }).catch(() => { });
 
   const { passwordHash, ...userWithoutHash } = foundUser;
 
@@ -753,7 +754,7 @@ app.post("/api/auth/register", async (req, res) => {
     factoryIds: [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-  }).catch(() => {});
+  }).catch(() => { });
 
   await saveUserDb({
     id: newUser.id,
@@ -765,7 +766,7 @@ app.post("/api/auth/register", async (req, res) => {
     passwordHash: newUser.passwordHash,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-  }).catch(() => {});
+  }).catch(() => { });
 
   const { passwordHash, ...userWithoutHash } = newUser;
 
@@ -824,7 +825,7 @@ app.post("/api/auth/forgot-password", async (req, res) => {
   passwordResetTokens.push(tokenDoc);
   saveLocalTokens(passwordResetTokens);
 
-  await saveResetTokenToStore(tokenDoc).catch(() => {});
+  await saveResetTokenToStore(tokenDoc).catch(() => { });
   await saveResetTokenDb({
     id: tokenDoc.id,
     userId: tokenDoc.userId,
@@ -832,7 +833,7 @@ app.post("/api/auth/forgot-password", async (req, res) => {
     expiresAt: new Date(tokenDoc.expiresAt).toISOString(),
     used: false,
     createdAt: tokenDoc.createdAt,
-  }).catch(() => {});
+  }).catch(() => { });
 
   await sendPasswordResetEmail(cleanEmail, resetToken, req);
 
@@ -1036,7 +1037,7 @@ app.post("/api/auth/reset-password", async (req, res) => {
     token: foundUser.token,
     factoryIds: foundUser.factoryIds,
     updatedAt: new Date().toISOString(),
-  }).catch(() => {});
+  }).catch(() => { });
 
   await saveUserDb({
     id: foundUser.id,
@@ -1047,9 +1048,9 @@ app.post("/api/auth/reset-password", async (req, res) => {
     companyName: foundUser.companyName,
     passwordHash: foundUser.passwordHash,
     updatedAt: new Date().toISOString(),
-  }).catch(() => {});
+  }).catch(() => { });
 
-  await saveResetTokenToStore(tokenObj).catch(() => {});
+  await saveResetTokenToStore(tokenObj).catch(() => { });
   await saveResetTokenDb({
     id: tokenObj.id,
     userId: tokenObj.userId,
@@ -1057,7 +1058,7 @@ app.post("/api/auth/reset-password", async (req, res) => {
     expiresAt: new Date(tokenObj.expiresAt).toISOString(),
     used: true,
     createdAt: tokenObj.createdAt,
-  }).catch(() => {});
+  }).catch(() => { });
 
   return res.status(200).json({
     success: true,
@@ -1487,10 +1488,10 @@ app.get("/api/ai/health-score/:factoryId", (req, res) => {
 
   const weightedScore = Math.round(
     electricityEfficiency * 0.25 +
-      waterEfficiency * 0.2 +
-      machineUtilizationScore * 0.25 +
-      productionEfficiency * 0.15 +
-      maintenanceHistoryScore * 0.15
+    waterEfficiency * 0.2 +
+    machineUtilizationScore * 0.25 +
+    productionEfficiency * 0.15 +
+    maintenanceHistoryScore * 0.15
   );
 
   let healthLevel: "Excellent" | "Good" | "Average" | "Needs Improvement" | "Critical" = "Good";
@@ -1724,11 +1725,11 @@ Total Operating Cost: $${totalCost.toLocaleString()}
 Average Machine Utilization: ${avgUtil}%
 Recent 7 Days Summary:
 ${recent7
-  .map(
-    (r) =>
-      `  - ${r.date}: Elec=${r.electricityKwh} kWh, Water=${r.waterLiters} L, Prod=${r.productionOutput} units, Cost=$${r.operatingCost}, Util=${r.machineUtilization}%`
-  )
-  .join("\n")}
+      .map(
+        (r) =>
+          `  - ${r.date}: Elec=${r.electricityKwh} kWh, Water=${r.waterLiters} L, Prod=${r.productionOutput} units, Cost=$${r.operatingCost}, Util=${r.machineUtilization}%`
+      )
+      .join("\n")}
 `;
 
   // Try calling Gemini API if available

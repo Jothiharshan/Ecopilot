@@ -30,10 +30,13 @@ export default defineConfig({
   schemaFilter: ["public"],
   dbCredentials: {
     host: sqlHost,
+    port: 5432,
     user: user,
     password: password,
     database: sqlDbName,
-    ssl: false,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
   verbose: true,
 });

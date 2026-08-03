@@ -9,6 +9,9 @@ declare global {
 }
 
 export const createPool = () => {
+  console.log("SQL_HOST =", process.env.SQL_HOST);
+  console.log("SQL_USER =", process.env.SQL_USER);
+  console.log("SQL_DB_NAME =", process.env.SQL_DB_NAME);
   if (!global._postgresPool) {
     global._postgresPool = new Pool({
       host: process.env.SQL_HOST,
