@@ -12,9 +12,13 @@ export const createPool = () => {
   if (!global._postgresPool) {
     global._postgresPool = new Pool({
       host: process.env.SQL_HOST,
+      port: 5432,
       user: process.env.SQL_USER,
       password: process.env.SQL_PASSWORD,
       database: process.env.SQL_DB_NAME,
+      ssl: {
+        rejectUnauthorized: false,
+      },
       max: 10,
       connectionTimeoutMillis: 15000,
     });
@@ -23,6 +27,7 @@ export const createPool = () => {
       console.error("Unexpected error on idle SQL pool client:", err);
     });
   }
+
   return global._postgresPool;
 };
 
