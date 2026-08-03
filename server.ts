@@ -490,6 +490,7 @@ async function syncDatabaseInit() {
           }
           if (allRecords.length > 0) {
             dailyRecords = allRecords;
+
           }
         }
       } catch (fErr) {
@@ -1869,6 +1870,51 @@ async function startServer() {
       res.sendFile(path.join(distPath, "index.html"));
     });
   }
+
+  //IOT DATA RECEIVING ENDPOINT
+  app.post("/api/iot/data", async (req, res) => {
+
+    try {
+
+      const {
+        voltage,
+        current,
+        power,
+        energy,
+        frequency,
+        powerFactor
+      } = req.body;
+
+      console.log("ESP32 DATA RECEIVED");
+
+      console.log(req.body);
+
+      // Example:
+      // Save to database here later
+
+      return res.status(200).json({
+
+        success: true,
+
+        message: "Sensor Data Received",
+
+        data: req.body
+
+      });
+
+    } catch (err) {
+
+      console.error(err);
+
+      return res.status(500).json({
+
+        success: false
+
+      });
+
+    }
+
+  });
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 EcoPilot AI server running on http://localhost:${PORT}`);
