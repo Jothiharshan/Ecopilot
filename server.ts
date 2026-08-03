@@ -461,6 +461,14 @@ async function syncDatabaseInit() {
         dailyRecords = allRecords;
       }
       console.log(`Loaded ${factories.length} factories and ${dailyRecords.length} records from Cloud SQL.`);
+      console.log("========== FACTORIES ==========");
+
+      for (const f of factories) {
+        console.log("Factory ID:", f.id);
+        console.log("Factory Name:", f.name);
+      }
+
+      console.log("===============================");
     } else {
       console.log("Seeding initial sample data into Cloud SQL & Firestore...");
       for (const fac of factories) {
@@ -1876,6 +1884,7 @@ async function startServer() {
     try {
 
       const {
+
         electricity_kwh,
         water_liters,
         production_output,
@@ -1888,7 +1897,7 @@ async function startServer() {
       console.log("ESP32 DATA RECEIVED");
       console.log(req.body);
 
-      const factoryId = "YOUR_FACTORY_ID";   // <-- CHANGE THIS
+      const factoryId = "f-1754255634211";   // <-- CHANGE THIS
 
       const today = new Date().toISOString().split("T")[0];
 
