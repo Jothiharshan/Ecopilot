@@ -1087,10 +1087,16 @@ app.get("/api/factories", (req, res) => {
   }
 
   const user = users.find(
+
     (u) =>
       (userId && u.id === userId) ||
       (email && u.email.toLowerCase() === (email as string).toLowerCase())
   );
+  console.log("========== FACTORY DEBUG ==========");
+  console.log("Request userId:", userId);
+  console.log("Request email:", email);
+  console.log("User found:", user);
+  console.log("All factories:", factories);
 
   if (!user) {
     // New user with no registered factories yet
@@ -1112,7 +1118,14 @@ app.get("/api/factories", (req, res) => {
   }
 
   const userFacs = factories.filter((f) => user.factoryIds?.includes(f.id));
-  res.json({ success: true, data: userFacs });
+
+  console.log("User factoryIds:", user.factoryIds);
+  console.log("Filtered factories:", userFacs);
+
+  res.json({
+    success: true,
+    data: factories,
+  });
 });
 
 app.post("/api/factories", async (req, res) => {
