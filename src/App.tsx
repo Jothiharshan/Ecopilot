@@ -158,7 +158,11 @@ export function MainDashboardContent({
     fetchAllFactoryTelemetry();
 
     // Refresh every 5 seconds
-    const interval = setInterval(fetchAllFactoryTelemetry, 5000);
+    const interval = setInterval(() => {
+      if (selectedFactory) {
+        fetchAllFactoryTelemetry();
+      }
+    }, 5000);
 
     return () => clearInterval(interval);
 
