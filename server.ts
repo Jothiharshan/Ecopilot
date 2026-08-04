@@ -1910,7 +1910,7 @@ async function startServer() {
       console.log("ESP32 DATA RECEIVED");
       console.log(req.body);
 
-      const factoryId = "f-1785781221785";  // <-- CHANGE THIS
+      const factoryId = "f-1785846637076"; // <-- CHANGE THIS
 
       const today = new Date().toISOString().split("T")[0];
 
