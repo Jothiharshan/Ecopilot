@@ -80,7 +80,9 @@ export function MainDashboardContent({
       setIsLoadingData(true);
       try {
         const list = await fetchFactories(currentUser.id, currentUser.email);
-        
+        console.log("Factories from API:", list);
+        console.log("Current User:", currentUser);
+
         let userFactories: Factory[] = [];
         if (currentUser.factoryIds && currentUser.factoryIds.length > 0) {
           userFactories = list.filter((f) => currentUser.factoryIds?.includes(f.id));
@@ -97,6 +99,7 @@ export function MainDashboardContent({
         // DO NOT automatically assign or create a default factory for a user with no factories!
         if (userFactories.length > 0) {
           setSelectedFactory(userFactories[0]);
+          console.log("Selected Factory:", userFactories[0]);
         } else {
           setSelectedFactory(null);
         }
@@ -114,6 +117,7 @@ export function MainDashboardContent({
 
   // Load telemetry data whenever active factory changes
   useEffect(() => {
+    console.log("selectedFactory =", selectedFactory);
     if (!selectedFactory) {
       setRecords([]);
       setPredictionData(null);
@@ -123,8 +127,8 @@ export function MainDashboardContent({
       setIsLoadingData(false);
       return;
     }
+
     async function fetchAllFactoryTelemetry() {
-      setIsLoadingData(true);
       try {
         const [recList, pred, recs, anoms, hlth] = await Promise.all([
           fetchDailyRecords(selectedFactory.id),
@@ -133,18 +137,28 @@ export function MainDashboardContent({
           fetchAnomalies(selectedFactory.id),
           fetchHealthScore(selectedFactory.id),
         ]);
+
         setRecords(recList || []);
         setPredictionData(pred || null);
         setRecommendations(recs || []);
         setAnomalies(anoms || []);
         setHealthData(hlth || null);
+
       } catch (err) {
-        console.error("Failed loading factory telemetry:", err);
+        console.error(err);
       } finally {
         setIsLoadingData(false);
       }
     }
+
+    // First load
     fetchAllFactoryTelemetry();
+
+    // Refresh every 5 seconds
+    const interval = setInterval(fetchAllFactoryTelemetry, 5000);
+
+    return () => clearInterval(interval);
+
   }, [selectedFactory]);
 
   const refreshFactoryTelemetry = async (factoryId: string) => {
