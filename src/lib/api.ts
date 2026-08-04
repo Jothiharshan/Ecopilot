@@ -27,8 +27,8 @@ export async function loginUser(
         message: res.status === 404
           ? "Account not found. Please sign up first."
           : res.status === 401
-          ? "Incorrect password. Please try again."
-          : "Authentication failed. Please check your inputs.",
+            ? "Incorrect password. Please try again."
+            : "Authentication failed. Please check your inputs.",
       };
     }
     return data;
@@ -135,16 +135,22 @@ export async function deleteFactory(id: string): Promise<boolean> {
 
 export async function fetchDailyRecords(factoryId: string): Promise<DailyRecord[]> {
   try {
+    console.log("Fetching records for:", factoryId);
+
     const res = await fetch(`${BASE_URL}/factories/${factoryId}/records`);
-    if (!res.ok) return [];
+
+    console.log("HTTP Status:", res.status);
+
     const json = await res.json();
+
+    console.log("API Response:", json);
+
     return json.data || [];
   } catch (err) {
     console.error("fetchDailyRecords error:", err);
     return [];
   }
 }
-
 export async function addDailyRecord(factoryId: string, payload: Partial<DailyRecord>): Promise<DailyRecord> {
   try {
     const res = await fetch(`${BASE_URL}/factories/${factoryId}/records`, {

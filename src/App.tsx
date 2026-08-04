@@ -138,6 +138,9 @@ export function MainDashboardContent({
           fetchHealthScore(selectedFactory.id),
         ]);
 
+        console.log("Records received:", recList);
+        console.log("Selected Factory:", selectedFactory.id);
+
         setRecords(recList || []);
         setPredictionData(pred || null);
         setRecommendations(recs || []);
@@ -171,6 +174,9 @@ export function MainDashboardContent({
         fetchAnomalies(factoryId),
         fetchHealthScore(factoryId),
       ]);
+
+      console.log("Refresh Records:", recList);
+      console.log("Factory ID:", factoryId);
       setRecords(recList || []);
       setPredictionData(pred || null);
       setRecommendations(recs || []);
