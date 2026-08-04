@@ -20,6 +20,7 @@ export const KpiCards: React.FC<KpiCardsProps> = ({
 
   // Calculate stats from records
   const hasData = records.length > 0;
+  const latestRecord = hasData ? records[records.length - 1] : null;
   const recent7 = records.slice(-7);
   const prev7 = records.slice(-14, -7);
 
@@ -61,15 +62,14 @@ export const KpiCards: React.FC<KpiCardsProps> = ({
         </div>
         <div className="flex items-baseline gap-2">
           <h3 className="text-2xl font-bold italic tracking-tight text-white">
-            {formatNumber(totalElectricity7)}{" "}
+            {formatNumber(latestRecord?.electricityKwh ?? 0)}{" "}
             <span className="text-sm font-normal not-italic text-[#71717A]">
               kWh
             </span>
           </h3>
           <span
-            className={`text-[10px] font-bold ${
-              !hasData ? "text-[#71717A]" : electricityDiff > 0 ? "text-red-400" : "text-green-400"
-            }`}
+            className={`text-[10px] font-bold ${!hasData ? "text-[#71717A]" : electricityDiff > 0 ? "text-red-400" : "text-green-400"
+              }`}
           >
             {!hasData ? "--" : electricityDiff > 0 ? `+${electricityDiff.toFixed(1)}%` : `${electricityDiff.toFixed(1)}%`}
           </span>
@@ -90,15 +90,14 @@ export const KpiCards: React.FC<KpiCardsProps> = ({
         </div>
         <div className="flex items-baseline gap-2">
           <h3 className="text-2xl font-bold italic tracking-tight text-white">
-            {avgUtilization7.toFixed(1)}{" "}
+         {(latestRecord?.machineUtilization ?? 0).toFixed(1)}{" "}
             <span className="text-sm font-normal not-italic text-[#71717A]">
               %
             </span>
           </h3>
           <span
-            className={`text-[10px] font-bold ${
-              !hasData ? "text-[#71717A]" : utilDiff >= 0 ? "text-green-400" : "text-red-400"
-            }`}
+            className={`text-[10px] font-bold ${!hasData ? "text-[#71717A]" : utilDiff >= 0 ? "text-green-400" : "text-red-400"
+              }`}
           >
             {!hasData ? "--" : utilDiff >= 0 ? `+${utilDiff.toFixed(1)}%` : `${utilDiff.toFixed(1)}%`}
           </span>
@@ -119,12 +118,11 @@ export const KpiCards: React.FC<KpiCardsProps> = ({
         </div>
         <div className="flex items-baseline gap-2">
           <h3 className="text-2xl font-bold italic tracking-tight text-white">
-            {formatCurrency(totalCost7)}
+           {formatCurrency(latestRecord?.operatingCost ?? 0)}
           </h3>
           <span
-            className={`text-[10px] font-bold ${
-              !hasData ? "text-[#71717A]" : costDiff <= 0 ? "text-green-400" : "text-red-400"
-            }`}
+            className={`text-[10px] font-bold ${!hasData ? "text-[#71717A]" : costDiff <= 0 ? "text-green-400" : "text-red-400"
+              }`}
           >
             {!hasData ? "--" : costDiff <= 0 ? `${costDiff.toFixed(1)}%` : `+${costDiff.toFixed(1)}%`}
           </span>
